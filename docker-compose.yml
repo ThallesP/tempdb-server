@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  postgres-tempdb:
+    image: postgres
+    container_name: postgres-tempdb
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=tempdb
+      - POSTGRES_DB=tempdb
+    volumes:
+      - tempdbPostgres:/data/postgres
+  tempdb-server:
+    build: .
+    environment:
+      - POSTGRES_DATABASE_URL=postgres://postgres:tempdb@postgres-tempdb:5432/tempdb
+    links:
+      - postgres-tempdb
+    depends_on:
+      - postgres-tempdb
+    container_name: tempdb-server
+    ports:
+      - "333:3333"
+
+volumes:
+  tempdbPostgres:
