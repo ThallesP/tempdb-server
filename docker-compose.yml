@@ -20,7 +20,7 @@ services:
       - postgres-tempdb
     container_name: tempdb-server
     ports:
-      - "333:3333"
+      - "5676:5676"
 
 volumes:
   tempdbPostgres:

@@ -1,21 +1,12 @@
-import { Client } from "pg";
+import { Knex, knex } from "knex";
 
-let client: Client;
+export let pgClient: Knex;
 
-export async function createPostgresClient() {
-  if (!client) {
-    client = new Client({
-      connectionString: process.env.POSTGRES_DATABASE_URL,
-    });
+const pg = knex({
+  client: "pg",
+  connection: {
+    connectionString: process.env.POSTGRES_DATABASE_URL,
+  },
+});
 
-    await client.connect();
-  }
-}
-
-export function getPostgresClient(): Client {
-  return client;
-}
-
-export async function endPostgresConnection() {
-  await client.end();
-}
+pgClient = pg;
