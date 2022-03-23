@@ -8,6 +8,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=tempdb
       - POSTGRES_DB=tempdb
+    ports:
+      - "5432:5432"
     volumes:
       - tempdbPostgres:/data/postgres
   tempdb-server:

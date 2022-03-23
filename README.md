@@ -2,7 +2,7 @@
 
 Create temporary databases with simple CLI
 
-## Deploy
+## 🚀 Deploy
 
 ```
 docker-compose up -d
@@ -10,7 +10,7 @@ docker-compose up -d
 
 Application will be running on port 5676
 
-## TODO
+## 📝 TODO
 
 - [x] Create random database
 - [x] Create one command deploy
