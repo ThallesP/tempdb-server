@@ -3,6 +3,6 @@ export enum DatabaseTypes {
 }
 
 export interface ICreateDatabaseDTO {
-  expires_in?: Date;
+  expires_in_milliseconds?: number;
   database_type: DatabaseTypes;
 }
