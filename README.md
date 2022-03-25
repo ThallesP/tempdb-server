@@ -2,6 +2,9 @@
 
 Create temporary databases with simple CLI
 
+## 📝 Requirements
+- [Docker](https://docs.docker.com/)
+
 ## 🚀 Deploy
 
 ```
