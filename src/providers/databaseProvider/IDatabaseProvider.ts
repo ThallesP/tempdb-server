@@ -1,4 +1,4 @@
-import { ICreateDatabaseUserDTO } from "../../dtos/ICreateDatabaseUserDTO";
+import { ICreateDatabaseUserDTO } from "../../modules/database/dtos/ICreateDatabaseUserDTO";
 
 export interface IDatabaseProvider {
   create(database_name: string): Promise<void>;

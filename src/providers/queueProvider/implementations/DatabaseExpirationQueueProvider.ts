@@ -1,34 +1,40 @@
-import { Queue, Worker } from "bullmq";
-import { DeleteDatabaseService } from "../../../services/DeleteDatabaseService";
-import { IQueueProvider } from "../IQueueProvider";
+import { IDeleteDatabaseDTO } from "@modules/database/dtos/IDeleteDatabaseDTO";
+import { redisConnection } from "@shared/infra/redis/connection";
+import { Queue, QueueScheduler, Worker } from "bullmq";
+import { injectable } from "tsyringe";
+import {
+  IDatabaseExpirationQueueProvider,
+  Job,
+} from "../IDatabaseExpirationQueueProvider";
 
-export class DatabaseExpirationQueueProvider implements IQueueProvider {
-  private static INSTANCE: DatabaseExpirationQueueProvider;
+@injectable()
+export class DatabaseExpirationQueueProvider
+  implements IDatabaseExpirationQueueProvider
+{
   private queue: Queue;
+  private queueName = "delete-database-after-expiration";
 
-  private constructor() {
-    this.queue = new Queue("delete-database-after-expiration");
-
-    const deleteDatabaseService = new DeleteDatabaseService();
-    new Worker("delete-database-after-expiration", async (job) => {
-      await deleteDatabaseService.execute(job.data);
+  constructor() {
+    this.queue = new Queue(this.queueName, {
+      connection: redisConnection,
     });
+    new QueueScheduler(this.queueName, { connection: redisConnection });
   }
 
-  static getInstance(): DatabaseExpirationQueueProvider {
-    if (!DatabaseExpirationQueueProvider.INSTANCE) {
-      DatabaseExpirationQueueProvider.INSTANCE =
-        new DatabaseExpirationQueueProvider();
-    }
-
-    return DatabaseExpirationQueueProvider.INSTANCE;
+  async addJob(data: IDeleteDatabaseDTO): Promise<void> {
+    await this.queue.add(this.queueName, data);
   }
 
-  async addJob(name: string, data: any): Promise<void> {
-    await this.queue.add(name, data);
+  async addJobWithDelay(
+    data: IDeleteDatabaseDTO,
+    delay: number
+  ): Promise<void> {
+    await this.queue.add(this.queueName, data, { delay });
   }
 
-  async addJobWithDelay(name: string, data: any, delay: number): Promise<void> {
-    await this.queue.add(name, data, { delay });
+  process(processFunction: (job: Job) => Promise<void>): void {
+    new Worker(this.queueName, processFunction, {
+      connection: redisConnection,
+    });
   }
 }

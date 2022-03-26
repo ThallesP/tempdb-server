@@ -1,5 +1,5 @@
 import request from "supertest";
-import { app } from "../../../src/app";
+import { app } from "@shared/infra/http/app";
 
 jest.setTimeout(15 * 1000);
 describe("Create Database Controller", () => {
