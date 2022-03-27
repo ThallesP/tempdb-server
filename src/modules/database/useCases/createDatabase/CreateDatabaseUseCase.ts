@@ -28,7 +28,7 @@ export class CreateDatabaseUseCase {
 
     return {
       database_name: databaseName,
-      expires_in: 0,
+      expires_in: new Date(Date.now() + expires_in_milliseconds).getTime(),
     };
   }
 }
