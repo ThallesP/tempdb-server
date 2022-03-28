@@ -4,6 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 import { IDatabase } from "../../dtos/IDatabase";
 import { DatabaseExpirationQueueProvider } from "../../../../providers/queueProvider/implementations/DatabaseExpirationQueueProvider";
 import { inject, injectable } from "tsyringe";
+import crypto from "crypto";
 
 @injectable()
 export class CreateDatabaseUseCase {
@@ -20,6 +21,13 @@ export class CreateDatabaseUseCase {
 
     const databaseName = uuidV4();
     await databaseProvider.create(databaseName);
+    const user = crypto.randomBytes(8).toString("hex");
+    const password = crypto.randomBytes(8).toString("hex");
+    await databaseProvider.createDatabaseUser({
+      user,
+      password,
+      database_name: databaseName,
+    });
 
     await this.queueProvider.addJobWithDelay(
       { database_type, database_name: databaseName },
@@ -27,6 +35,8 @@ export class CreateDatabaseUseCase {
     );
 
     return {
+      user,
+      password,
       database_name: databaseName,
       expires_in: new Date(Date.now() + expires_in_milliseconds).getTime(),
     };

@@ -3,6 +3,9 @@ import { ICreateDatabaseUserDTO } from "../../modules/database/dtos/ICreateDatab
 export interface IDatabaseProvider {
   create(database_name: string): Promise<void>;
   delete(database_name: string): Promise<void>;
-  // TODO: add createDatabaseUser method
-  //createDatabaseUser({ user, password }: ICreateDatabaseUserDTO): Promise<void>;
+  createDatabaseUser({
+    user,
+    password,
+    database_name,
+  }: ICreateDatabaseUserDTO): Promise<void>;
 }
