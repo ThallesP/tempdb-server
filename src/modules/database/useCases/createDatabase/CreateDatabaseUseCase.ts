@@ -5,6 +5,7 @@ import { IDatabase } from "../../dtos/IDatabase";
 import { DatabaseExpirationQueueProvider } from "../../../../providers/queueProvider/implementations/DatabaseExpirationQueueProvider";
 import { inject, injectable } from "tsyringe";
 import crypto from "crypto";
+import { MaxTempDBExpirationReachedExpirationException } from "@modules/database/exceptions/MaxTempDBExpirationReachedException";
 
 @injectable()
 export class CreateDatabaseUseCase {
@@ -17,6 +18,14 @@ export class CreateDatabaseUseCase {
     database_type,
     expires_in_milliseconds,
   }: ICreateDatabaseDTO): Promise<IDatabase> {
+    const { MAX_TEMPDB_EXPIRATION_MS } = process.env;
+    if (MAX_TEMPDB_EXPIRATION_MS) {
+      const maxTempDBExpirationMS = Number(MAX_TEMPDB_EXPIRATION_MS);
+      if (expires_in_milliseconds > maxTempDBExpirationMS) {
+        throw new MaxTempDBExpirationReachedExpirationException();
+      }
+    }
+
     const databaseProvider = getDatabaseProviderByName(database_type);
 
     const databaseName = uuidV4();
