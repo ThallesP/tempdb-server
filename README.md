@@ -20,4 +20,4 @@ Application will be running on port 5676
 - [x] Create one command deploy
 - [x] Remove database after the expiration
 - [x] Add authentication
-- [] Create user per database and restrict to the database
+- [x] Create user per database and restrict to the database

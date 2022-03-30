@@ -12,7 +12,9 @@ export class PostgresDatabaseProvider implements IDatabaseProvider {
 
   async create(database_name: string): Promise<void> {
     await pgClient.schema.raw(`CREATE DATABASE "${database_name}"`);
-    // TODO: Revoke all users the privileges to connect to the database
+    await pgClient.schema.raw(
+      `REVOKE connect ON DATABASE "${database_name}" FROM PUBLIC`
+    );
   }
 
   async createDatabaseUser({
@@ -23,6 +25,8 @@ export class PostgresDatabaseProvider implements IDatabaseProvider {
     await pgClient.schema.raw(
       `CREATE USER "${user}" WITH PASSWORD '${password}'`
     );
-    // TODO: grant user privileges to the database name
+    await pgClient.schema.raw(
+      `GRANT connect ON DATABASE "${database_name}" TO "${user}"`
+    );
   }
 }
