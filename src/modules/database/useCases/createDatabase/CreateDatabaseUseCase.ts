@@ -44,9 +44,11 @@ export class CreateDatabaseUseCase {
     );
 
     return {
+      host: process.env.APP_HOST,
       user,
       password,
       database_name: databaseName,
+      connection_string: `${database_type}://${user}:${password}@${process.env.APP_HOST}/${databaseName}`,
       expires_in: new Date(Date.now() + expires_in_milliseconds).getTime(),
     };
   }
