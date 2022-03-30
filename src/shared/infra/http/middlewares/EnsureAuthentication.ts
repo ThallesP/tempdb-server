@@ -6,7 +6,7 @@ export function ensureAuthentication(
   response: Response,
   next: NextFunction
 ) {
-  if (process.env.PASSWORD_AUTHENTICATION == "") return;
+  if (process.env.PASSWORD_AUTHENTICATION === "none") return;
 
   const [bearer, password] = request.headers["authorization"].split(" ");
 
