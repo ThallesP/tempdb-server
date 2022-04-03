@@ -7,6 +7,8 @@ Create temporary databases with simple CLI
 - [Docker](https://docs.docker.com/)
 
 ## 🚀 Deploy
+One click deploy:  
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/6NP_Qx?referralCode=chIZYq)
 
 ```
 docker-compose up -d
