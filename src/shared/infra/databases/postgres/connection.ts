@@ -7,6 +7,12 @@ const pg = knex({
   connection: {
     connectionString: process.env.POSTGRES_DATABASE_URL,
   },
+  pool: {
+    min: 0,
+    max: 5,
+    acquireTimeoutMillis: 60000,
+    idleTimeoutMillis: 600000,
+  },
 });
 
 pgClient = pg;
