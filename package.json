@@ -30,7 +30,7 @@
     "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
     "ioredis": "^5.0.1",
-    "knex": "^1.0.4",
+    "knex": "^2.0.0",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "supertest": "^6.2.2",
