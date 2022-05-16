@@ -33,7 +33,7 @@
     "knex": "^2.0.0",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
-    "supertest": "^6.2.2",
+    "supertest": "^6.2.3",
     "tsyringe": "^4.6.0",
     "uuid": "^8.3.2"
   }
