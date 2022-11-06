@@ -1333,10 +1333,10 @@ buffer-writer@2.0.0:
   resolved "https://registry.yarnpkg.com/buffer-writer/-/buffer-writer-2.0.0.tgz#ce7eb81a38f7829db09c873f2fbb792c0c98ec04"
   integrity sha512-a7ZpuTZU1TRtnwyCNW3I5dc0wWNC3VR9S++Ewyk2HHZdrO3CQJqSpd+95Us590V6AL7JqUAH2IwZ/398PmNFgw==
 
-bullmq@^2.0.0:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-2.3.2.tgz#a2ccf50f336a15cc7b75b0d1edf2d9b3619517df"
-  integrity sha512-4Hcnv7I2i2RVsxmKi2V8Tn+OGPsOSG3UgXQRQL9fWaMJeDaOanj4g+jIOhh9R9KGbYJH1Vv+Bko4UJcCFN2NWg==
+bullmq@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-3.0.0.tgz#b660f1a926f7997014add8af95015668533a74b2"
+  integrity sha512-amw+YZhEo1B47iMpaLbtKwlzZjQi5NYjLCYl8n9qkQpkDDVAVJ9d++zdOgyXX6kG7i/pMP9tr2vyj3J6IcjbTA==
   dependencies:
     cron-parser "^4.6.0"
     glob "^8.0.3"
